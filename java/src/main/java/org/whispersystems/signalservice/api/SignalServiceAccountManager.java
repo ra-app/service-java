@@ -108,8 +108,8 @@ public class SignalServiceAccountManager {
    *
    * @throws IOException
    */
-  public void requestSmsVerificationCode() throws IOException {
-    this.pushServiceSocket.createAccount(false);
+  public void requestSmsVerificationCode(boolean androidSmsRetrieverSupported) throws IOException {
+    this.pushServiceSocket.requestSmsVerificationCode(androidSmsRetrieverSupported);
   }
 
   /**
@@ -118,8 +118,8 @@ public class SignalServiceAccountManager {
    *
     * @throws IOException
    */
-  public void requestVoiceVerificationCode() throws IOException {
-    this.pushServiceSocket.createAccount(true);
+  public void requestVoiceVerificationCode(Locale locale) throws IOException {
+    this.pushServiceSocket.requestVoiceVerificationCode(locale);
   }
 
   /**
