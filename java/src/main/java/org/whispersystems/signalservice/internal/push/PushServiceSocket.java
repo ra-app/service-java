@@ -56,9 +56,12 @@ import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -111,6 +114,7 @@ public class PushServiceSocket {
 
   private       long      soTimeoutMillis = TimeUnit.SECONDS.toMillis(30);
   private final Set<Call> connections     = new HashSet<>();
+  private static final Map<String, String> NO_HEADERS = Collections.emptyMap();
 
   private final ConnectionHolder[]  serviceClients;
   private final ConnectionHolder[]  cdnClients;
@@ -664,6 +668,12 @@ public class PushServiceSocket {
         connections.remove(call);
       }
     }
+  }
+
+  private String makeServiceRequest(String urlFragment, String method, String body, Map<String, String> headers)
+          throws NonSuccessfulResponseCodeException, PushNetworkException
+  {
+    return makeServiceRequest(urlFragment, method, body); // Hotfix https://github.com/signalapp/libsignal-service-java/blob/8b0ca53f92fa7332e3fe53b2e261b4c3a136a008/java/src/main/java/org/whispersystems/signalservice/internal/push/PushServiceSocket.java
   }
 
   private String makeServiceRequest(String urlFragment, String method, String body)
